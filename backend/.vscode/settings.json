@@ -1,0 +1,15 @@
+{
+  "workbench.colorCustomizations": {
+    "titleBar.activeForeground": "#FF2C70",
+    "titleBar.activeBackground": "#000",
+    "titleBar.inactiveBackground": "#FF2C70CC",
+    "titleBar.inactiveForeground": "#000"
+  },
+  "workbench.tree.horizontalScrolling": true,
+  "eslint.options": {
+    "configFile": "C:/Users/ryola/Desktop/bootcamp/git/nmo-web-app/backend/.eslintrc"
+  },
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  }
+}
