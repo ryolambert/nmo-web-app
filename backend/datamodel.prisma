@@ -1,6 +1,9 @@
 # This file is for setting up the backend with prisma that generates the prisma.graphql file
 # EVERY TIME YOU MAKE CHANGES TO THE DATAMODEL=> REDEPLOY ON PRISMA FOR UPDATES TO TAKE HOLD
 
+# ! THIS IS A INTROSPECTED GEN FILE FROM PRISMA NEEDS EDITING
+# TODO: Change all entity Ids over to `id: ID!`
+
 type Activity @pgTable(name: "activity") {
   # id: null! @unique @pgColumn(name: "activityid") # Type 'bytea' is not yet supported.
   activityname: String
@@ -35,6 +38,7 @@ type Recarea @pgTable(name: "recarea") {
   reviews: [Review!]!
 }
 
+# TODO: Will probably delete, just using as a reference from RIDB api json response
 type Recareas @pgTable(name: "recareas") {
   METADATA_RESULTS_CURRENT_COUNT: Int
   METADATA_RESULTS_TOTAL_COUNT: Int
