@@ -1,12 +1,13 @@
 {
   "workbench.colorCustomizations": {
-    "titleBar.activeForeground": "#FFC600",
-    "titleBar.activeBackground": "#000",
-    "titleBar.inactiveForeground": "#000000CC",
-    "titleBar.inactiveBackground": "#FFC600CC"
+    "titleBar.activeBackground": "#FFC600",
+    "titleBar.activeForeground": "#000"
+    // "titleBar.activeBackground": "#000",
+    // "titleBar.inactiveForeground": "#000000CC",
+    // "titleBar.inactiveBackground": "#FFC600CC"
   },
   "editor.fontFamily": "Dank Mono, Dank Mono Italic",
-  "editor.fontSize": 16,
+  "editor.fontSize": 14,
   "editor.lineHeight": 20,
   "editor.letterSpacing": 0.5,
   "workbench.editor.tabSizing": "shrink",
