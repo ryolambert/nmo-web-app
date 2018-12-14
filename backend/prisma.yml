@@ -1,0 +1,16 @@
+# ! NOTE: Tack in endpoint from nmo-web-app prisma service once 
+# TODO:
+# 1️⃣. Setup Prisma Service on Heroku Server (run prisma init in a terminal)
+# 2️⃣. Choose `nmo-web-app` service
+# 3️⃣. run `prisma deploy`
+# * If you're feeling fancy 🤵 you can download and run the graphql cli 
+#   and run `graphql create "app-name"`
+
+endpoint: http://localhost:4466
+datamodel: datamodel.prisma
+# UNCOMMENT THIS LINE BELOW BEFORE PRODUCTION!!!
+# secret: ${env:PRISMA_SECRET}
+# * hook to run command, starts graphql/prisma
+hooks:
+  post-deploy:
+    - graphql get-schema -p prisma
