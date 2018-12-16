@@ -22,7 +22,7 @@ enum Permission {
 type Activity {
   id: ID! @unique
   activityname: String!
-  recAreas: [RecArea!]!
+  recAreas: RecArea! @relation(name: "RecAreaActivities")
   # activitytypes: [Activitytype!]!
 }
 
@@ -32,8 +32,9 @@ type Activity {
 # }
 
 type Favorite {
+  id: ID! @unique
   user: User!
-  recArea: RecArea!
+  recArea: RecArea! @relation(name: "RecAreaFavoriters")
 }
 
 type Image {
@@ -61,9 +62,10 @@ type User {
 
 type RecArea {
   id: ID! @unique
-  activities: [Activity]
+  activities: [Activity!]! @relation(name: "RecAreaActivities", onDelete: CASCADE)
   description: String!
   directions: String
+  favorites: [Favorite!]! @relation(name: "RecAreaFavoriters", onDelete: CASCADE)
   images: [Image]
   lat: Float!
   long: Float!
