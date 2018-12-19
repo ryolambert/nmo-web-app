@@ -1,0 +1,27 @@
+{
+  "name": "nmo-web-app",
+  "private": true,
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-graphql": "3.0.1",
+    "eslint-plugin-html": "5.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-security": "^1.4.0",
+    "graphql": "14.0.2",
+    "prettier": "^1.15.3",
+    "pretty-quick": "^1.8.0"
+  },
+  "scripts": {},
+  "precommit": "lint-stage",
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}
