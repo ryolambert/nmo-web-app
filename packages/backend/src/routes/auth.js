@@ -27,5 +27,19 @@ authRoute.get(
     res.redirect("http://localhost:3000");
   },
 );
+// TODO: Check with actual passport documentation on twitter authRoute
+authRoute.get(
+  "/twitter",
+  passport.authenticate("twitter", {
+    scope: ["email"],
+  }),
+);
+authRoute.get(
+  "/twitter/callback",
+  passport.authenticate("twitter"),
+  (req, res) => {
+    res.redirect("/graphql");
+  },
+);
 
 export default authRoute;
