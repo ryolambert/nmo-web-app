@@ -6,11 +6,21 @@
 # * If you're feeling fancy 🤵 you can download and run the graphql cli
 #   and run `graphql create "app-name"`
 
-endpoint: https://nmo-web-app-3d101d275d.herokuapp.com/nmo-web-service/dev
+endpoint: ${env:PRISMA_ENDPOINT}
+
 datamodel: datamodel.prisma
-# UNCOMMENT THIS LINE BELOW BEFORE PRODUCTION!!!
-# secret: ${env:PRISMA_SECRET}
-# * hook to run command, starts graphql/prisma
+
+# * Uncomment when put into production
+secret: ${env:PRISMA_SECRET}
+
+generate:
+  - generator: javascript-client
+    output: ../generated/prisma-client/
+  - generator: graphql-schema
+    output: ../generated/
+
+# * Hook to run command, runs prisma generated files && starts graphql/prisma
 hooks:
   post-deploy:
+    - prisma generate
     - graphql get-schema -p prisma
