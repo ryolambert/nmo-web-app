@@ -43,6 +43,7 @@ type User {
   avatar: String
   facebookId: String @unique
   googleId: String @unique
+  twitterId: String @unique
   createdAt: DateTime!
   updatedAt: DateTime!
   email: String! @unique
