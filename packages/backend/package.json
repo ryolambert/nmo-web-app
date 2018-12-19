@@ -17,7 +17,7 @@
     "start": "nodemon -e js,graphql -x node src/index.js",
     "dev": "nodemon -e js,graphql -x node --inspect src/index.js",
     "test": "jest",
-    "deploy": "prisma deploy --env-file variables.env"
+    "deploy": "cd prisma && prisma deploy --env-file ../.env"
   },
   "dependencies": {
     "@graphql-modules/epoxy": "^0.2.17",
@@ -38,6 +38,7 @@
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
     "passport-google-oauth20": "^1.0.0",
+    "passport-twitter": "^1.0.4",
     "passport": "^0.4.0",
     "prisma-binding": "^2.2.11",
     "prisma-client-lib": "^1.23.0"
