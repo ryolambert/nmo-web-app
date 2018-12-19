@@ -1,0 +1,52 @@
+{
+  "name": "nmo-backend",
+  "version": "1.0.0",
+  "description": "NM Outdoors 🌄 Backend! Built using GraphQL/Yoga and Prisma connected to a Postgres DB",
+  "main": "index.js",
+  "author": "ryolambert",
+  "license": "Apache-2.0",
+  "repository": {
+    "url": "relevantdesign.org"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "scripts": {
+    "start": "nodemon -e js,graphql -x node src/index.js",
+    "dev": "nodemon -e js,graphql -x node --inspect src/index.js",
+    "test": "jest",
+    "deploy": "prisma deploy --env-file variables.env"
+  },
+  "dependencies": {
+    "@graphql-modules/epoxy": "^0.2.17",
+    "@graphql-modules/sonar": "^0.2.17",
+    "apollo-server-express": "^2.3.1",
+    "bcryptjs": "2.4.3",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "graphql-import": "^0.7.1",
+    "graphql-yoga": "1.16.7",
+    "graphql": "^14.0.2",
+    "jsonwebtoken": "^8.4.0",
+    "nodemailer": "^4.7.0",
+    "npm-run-all": "^4.1.5",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
+    "passport-google-oauth20": "^1.0.0",
+    "passport": "^0.4.0",
+    "prisma-binding": "^2.2.11",
+    "prisma-client-lib": "^1.23.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.2.0",
+    "nodemon": "^1.18.9"
+  }
+}
