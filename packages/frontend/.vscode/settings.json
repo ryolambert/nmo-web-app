@@ -1,0 +1,61 @@
+{
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#FFC600",
+    "titleBar.activeForeground": "#000"
+    // "titleBar.activeBackground": "#000",
+    // "titleBar.inactiveForeground": "#000000CC",
+    // "titleBar.inactiveBackground": "#FFC600CC"
+  },
+  "editor.fontFamily": "Dank Mono, Dank Mono Italic",
+  "editor.fontSize": 14,
+  "editor.lineHeight": 20,
+  "editor.letterSpacing": 0.5,
+  "workbench.editor.tabSizing": "shrink",
+  "html.format.enable": true,
+  "html.format.preserveNewLines": true,
+  "files.trimTrailingWhitespace": true,
+  "editor.tabSize": 2,
+  // this isn't really underline but we hack it to be a thicker cursor
+  "editor.cursorStyle": "line",
+  "editor.cursorWidth": 3,
+  "editor.wordWrap": "bounded",
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.fontWeight": "400",
+  "editor.cursorBlinking": "smooth",
+  "editor.colorDecorators": false,
+  "editor.minimap.enabled": false,
+  "workbench.activityBar.visible": false,
+  "editor.renderWhitespace": "none",
+  "editor.rulers": [80, 100, 120],
+  "editor.minimap.showSlider": "always",
+  "workbench.startupEditor": "newUntitledFile",
+  "extensions.ignoreRecommendations": false,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/.next": true
+  },
+  "workbench.editor.tabCloseButton": "off",
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  // show snippets before any other auto completion
+  "editor.snippetSuggestions": "top",
+  // this lets you quickly open multiple items in a row and not have the previous ones closed on you
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "window.title": "${dirty} ${activeEditorMedium}${separator}${rootName}",
+  // These are all my auto-save configs
+  "editor.formatOnSave": true,
+  // turn it off for JS
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "eslint.autoFixOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  // "eslint.options": {
+  //   "configFile": "C:/Users/ryola/Desktop/bootcamp/git/nmo-web-app/frontend/.eslintrc"
+  // }
+}
