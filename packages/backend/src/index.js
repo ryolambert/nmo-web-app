@@ -1,13 +1,13 @@
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 
+require('dotenv').config({ path: 'variables.env' });
 const createServer = require('./createServer');
 const db = require('./db');
 const authRoute = require('./middleware/authRoute');
 const initPassport = require('./middleware/passport');
 const middleWare = require('./middleware/index');
 
-require('dotenv').config({ path: 'variables.env' });
 
 const server = createServer();
 
