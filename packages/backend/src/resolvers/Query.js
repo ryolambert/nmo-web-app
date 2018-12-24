@@ -1,5 +1,5 @@
 const { forwardTo } = require('prisma-binding');
-const { hasPermission } = require('../utils');
+const { hasPermission } = require('../utils/utils');
 
 const Query = {
   recareas: forwardTo('db'),
@@ -77,12 +77,12 @@ const Query = {
       },
       info
     );
-  },
-  async image(parent, args, ctx, info) {
-    // 1. Login check
-    const { userId } = ctx.request;
-
   }
+  // async image(parent, args, ctx, info) {
+  //   // 1. Login check
+  //   const { userId } = ctx.request;
+
+  // }
   // async totalFavorByCurrentUser(parent)
 };
 
