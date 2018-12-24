@@ -1,19 +1,21 @@
-import passport from "passport";
-import FacebookStrategy from "passport-facebook";
-import GoogleStrategy from "passport-google-oauth20";
-import TwitterStrategy from "passport-twitter";
+// Passport-js Oauth Strategies 
+const passport = require('passport');
+const FacebookStrategy = require('passport-facebook');
+const GoogleStrategy = require('passport-google-oauth20');
+const TwitterStrategy = require('passport-twitter');
 
-import prisma from "./prisma";
+const db = require('../db');
 
 const initPassport = () => {
-  passport.serializeUser((user, done) => {
+  passport.serializeUser
+  ((user, done) => {
     done(null, user.id);
   });
 
   passport.deserializeUser(async (id, done) => {
     // search in database for that user in the cookie by their id
     // and return that user
-    const user = await prisma.user({ id });
+    const user = await db.user({ id });
     done(null, user);
   });
 
@@ -30,11 +32,11 @@ const initPassport = () => {
         // here you save the new user to database or retrieve it if exists
         // when done with founding or creating user return it to done() func
         // done(null, user)
-        const currentUser = await prisma.user({ facebookId: profile.id });
+        const currentUser = await db.user({ facebookId: profile.id });
         if (currentUser) {
           done(null, currentUser);
         } else {
-          const newUser = await prisma.createUser({
+          const newUser = await db.createUser({
             facebookId: profile.id,
             name: profile.displayName,
             avatar: profile.photos[0].value,
@@ -53,11 +55,11 @@ const initPassport = () => {
         callbackURL: process.env.GOOGLE_CALLBACK_URL,
       },
       async (accessToken, refreshToken, profile, done) => {
-        const currentUser = await prisma.user({ googleId: profile.id });
+        const currentUser = await db.user({ googleId: profile.id });
         if (currentUser) {
           done(null, currentUser);
         } else {
-          const newUser = await prisma.createUser({
+          const newUser = await db.createUser({
             googleId: profile.id,
             name: profile.displayName,
             avatar: profile.photos[0].value,
@@ -79,11 +81,11 @@ const initPassport = () => {
         includeEmail: true
       },
       async (accessToken, refreshToken, profile, done) => {
-        const currentUser = await prisma.user({ twitterId: profile.id });
+        const currentUser = await db.user({ twitterId: profile.id });
         if (currentUser) {
           done(null, currentUser);
         } else {
-          const newUser = await prisma.createUser({
+          const newUser = await db.createUser({
             twitterId: profile.id,
             name: profile.displayName,
             avatar: profile.photos[0].value,
@@ -96,4 +98,4 @@ const initPassport = () => {
   );
 };
 
-export default initPassport;
+module.exports = initPassport;

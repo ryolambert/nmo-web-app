@@ -1,17 +1,20 @@
-import passport from "passport";
-import { Router } from "express";
-import cookieParser from "cookie-parser";
-import cookieSession from "cookie-session";
+const passport = require('passport');
+const { Router } = require('express');
+const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie');
 
 const middleWare = Router();
 middleWare.use(
   cookieSession({
-    keys: [process.env.SESSION_SECRET],
-    maxAge: 1000 * 60 * 60 * 24 * 7,
+    keys: [process.env.APP_SECRET],
+    maxAge: 1000 * 60 * 60 * 24 * 7, // * Cookie age set to 7 days
   }),
 );
 
 middleWare.use(passport.initialize());
 middleWare.use(passport.session());
 
-export default middleWare;
+module.exports = middleWare;
+
+
+
