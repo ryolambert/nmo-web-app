@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const config = require('../config/config');
 
-const Mail = {
+module.exports = {
   async sendWelcomeEmail (user, ctx) {
     var mailer = nodemailer.createTransport({
       service: 'Gmail',
@@ -54,9 +54,4 @@ const Mail = {
       }
     })
   }
-};
-
-module.exports = {
-  sendWelcomeEmail,
-  sendResetEmail
 };
