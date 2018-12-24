@@ -1,5 +1,5 @@
-import { Router } from "express";
-import passport from "passport";
+const { Router } = require('express');
+const passport = require('passport');
 
 const authRoute = Router();
 
@@ -48,4 +48,4 @@ authRoute.get(
   },
 );
 
-export default authRoute;
+module.exports = authRoute;
