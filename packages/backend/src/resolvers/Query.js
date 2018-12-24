@@ -78,6 +78,11 @@ const Query = {
       info
     );
   },
+  async image(parent, args, ctx, info) {
+    // 1. Login check
+    const { userId } = ctx.request;
+
+  }
   // async totalFavorByCurrentUser(parent)
 };
 
