@@ -1,5 +1,5 @@
 # source: https://nmo-web-app-3d101d275d.herokuapp.com/nmo-web-service/dev
-# timestamp: Tue Dec 18 2018 22:06:56 GMT-0700 (Mountain Standard Time)
+# timestamp: Sun Dec 23 2018 17:10:19 GMT-0700 (Mountain Standard Time)
 
 type Activity implements Node {
   id: ID!
