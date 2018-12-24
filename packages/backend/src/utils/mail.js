@@ -1,28 +1,62 @@
 const nodemailer = require('nodemailer');
+const config = require('../config/config');
 
-const transport = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT,
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
+const Mail = {
+  async sendWelcomeEmail (user, ctx) {
+    var mailer = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: config.userMail,
+        pass: config.passMail
+      }
+    })
+
+    var mailOptions = {
+      to: user.email,
+      from: 'nm-outdoors@gmail.com',
+      subject: 'Welcome to NM-Outdoors 🌄',
+      html: `
+      <div>hello ${user.name}</div>
+      <div>Welcome to New Mexico Outdoors 🤗.</div>
+        <div>Please use the link provided below to validate your email.
+           ${ctx.request.headers.origin}/validateEmail?validateEmailToken=${user.validateEmailToken}
+
+        </div>
+    `
+    }
+    return mailer.sendMail(mailOptions)
   },
-});
+  sendResetEmail (uniqueId, email, ctx) {
+    var mailer = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: config.userMail,
+        pass: config.passMail
+      }
+    })
 
-const makeANiceEmail = text => `
-  <div className="email" style="
-    border: 1px solid black;
-    padding: 20px;
-    font-family: sans-serif;
-    line-height: 2;
-    font-size: 20px;
-  ">
-    <h2>Hello There!</h2>
-    <p>${text}</p>
+    var mailOptions = {
+      to: email,
+      from: 'nm-outdoors@gmail.com',
+      subject: 'Password Reset - NM-Outdoors 🌄',
+      html: `
+      <div>hello</div>
+      <div>Please find link to reset your password.
+         ${ctx.request.headers.origin}/resetPassword?resetPasswordToken=${uniqueId}
+      </div>
+    `
+    }
+    mailer.sendMail(mailOptions, function (err) {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log('Mail sent to: ' + email)
+      }
+    })
+  }
+};
 
-    <p>🌄, NM-Outdoors!</p>
-  </div>
-`;
-
-exports.transport = transport;
-exports.makeANiceEmail = makeANiceEmail;
+module.exports = {
+  sendWelcomeEmail,
+  sendResetEmail
+};
