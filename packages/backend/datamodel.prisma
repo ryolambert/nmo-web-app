@@ -47,7 +47,7 @@ type User {
   createdAt: DateTime!
   updatedAt: DateTime!
   email: String! @unique
-  emailValidated: Boolean! @default(value: false)
+  emailValidated: Boolean! @default(value: "false")
   validateEmailToken: String! @unique
   favorites: [Favorite!]! @relation(name: "UserFavorites", onDelete: CASCADE)
   images: [Image!]! @relation(name: "UserImages", onDelete: CASCADE)

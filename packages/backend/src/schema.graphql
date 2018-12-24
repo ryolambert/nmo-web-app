@@ -27,7 +27,12 @@ type Mutation {
   # Deletes a RecArea
   deleteRecArea(id: ID!): RecArea
   # Signs user up
-  signup(email: String!, password: String!, name: String!, avatar: String!): AuthPayload!
+  signup(
+    email: String!
+    password: String!
+    name: String!
+    avatar: String!
+  ): AuthPayload!
   # Signs user in
   signin(email: String!, password: String!): AuthPayload!
   # Signs user out
@@ -40,8 +45,6 @@ type Mutation {
     password: String!
     confirmPassword: String!
   ): User!
-  # Updates user password from old to new
-  updatePassword(oldPassword: String, newPassword: String!): User!
   # Sends out an email link for users to validate their profile
   sendLinkValidateEmail: User!
   # Verifies the email token for email validation
@@ -59,7 +62,7 @@ type Mutation {
   # Adds a review to rec area being viewed
   createReview(content: String, rating: Int!): Review!
   # Updates a review
-  updateReview(id: ID!, content, rating: Int): Review
+  updateReview(id: ID!, content: String, rating: Int): Review
   # Deletes a review
   deleteReview(id: ID!): Review
 }
@@ -74,9 +77,8 @@ type Query {
   ): [Favorite]!
   favoritesConnection(where: FavoriteOrderByInput): FavoriteConnection!
   image(id: ID!): Image
-  images(
-    where: 
-  ): [Image]!
+  images(orderBy: ImageOrderByInput, skip: Int, first: Int): [Image]!
+  imagesConnection(where: ImageOrderByInput): ImageConnection!
   me: User
   users: [User]!
   recarea(where: RecAreaWhereUniqueInput!): RecArea
@@ -111,14 +113,3 @@ type AuthPayload {
   user: User!
   token: String!
 }
-
-"""
-* ---------------GraphQL Schema (public-facing API interface)------------------*
-This file is our public facing api, that interfaces with our javascript: Contains all of our queries (Query.js) and resolvers (Mutation.js). Cannot be left empty and since it's being referred to in the function createServer we need to define the resolvers of Mutation and Query
-* GRAPHQL NOTE: Creating a new type for a response message
-*------------------------------------------------------------------------------*
-"""
-# directive @isAuthenticated on QUERY | FIELD | MUTATION
-# directive @hasRole(roles: [String]) on QUERY | FIELD | MUTATION
-# directive @isOwner(type: String) on QUERY | MUTATION
-# directive @isOwnerOrHasRole(type: String, roles: [String]) on QUERY | MUTATION

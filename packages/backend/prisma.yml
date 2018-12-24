@@ -14,13 +14,12 @@ datamodel: datamodel.prisma
 secret: ${env:PRISMA_SECRET}
 
 generate:
-  - generator: javascript-client
-    output: src/generated/prisma-client/
+  # - generator: javascript-client
+  #   output: src/generated/prisma-client/
   - generator: graphql-schema
     output: src/generated/
 
 # * Hook to run command, runs prisma generated files && starts graphql/prisma
 hooks:
   post-deploy:
-    - prisma generate
     - graphql get-schema -p prisma
