@@ -1,0 +1,90 @@
+"""
+* ---------------GraphQL Schema (public-facing API interface)------------------*
+This file is our public facing api, that interfaces with our javascript: Contains all of our queries (Query.js) and resolvers (Mutation.js). Cannot be left empty and since it's being referred to in the function createServer we need to define the resolvers of Mutation and Query
+* GRAPHQL NOTE: Creating a new type for a response message
+*------------------------------------------------------------------------------*
+"""
+# directive @isAuthenticated on QUERY | FIELD | MUTATION
+# directive @hasRole(roles: [String]) on QUERY | FIELD | MUTATION
+# directive @isOwner(type: String) on QUERY | MUTATION
+# directive @isOwnerOrHasRole(type: String, roles: [String]) on QUERY | MUTATION
+
+# import * from './generated/prisma.graphql'
+
+# type SuccessMessage {
+#   message: String
+# }
+
+# type Mutation {
+#   # Creates a RecArea
+#   createRecArea(name: String, lat: Float, long: Float, description: String, activities: [Activity], images: [Image]): RecArea!
+#   # Updates a RecArea
+#   updateRecArea(id: ID!, name: String, lat: Float, long: Float, description: String, activities: [Activity], images: [Image]): RecArea!
+#   # Deletes a RecArea
+#   deleteRecArea(id: ID!): RecArea
+#   # Signs user up
+#   signup(email: String!, password: String!, name: String!, avatar: String!): AuthPayload!
+#   # Signs user in
+#   signin(email: String!, password: String!): AuthPayload!
+#   # Signs user out
+#   signout: SuccessMessage
+#   # User password reset email request
+#   requestReset(email: String!): User!
+#   # User password input for reset on site
+#   resetPassword(resetToken: String!, password: String!, confirmPassword: String!): User!
+#   # Updates user password from old to new
+#   updatePassword(oldPassword: String, newPassword: String!): User!
+#   # Sends out an email link for users to validate their profile
+#   sendLinkValidateEmail: User!
+#   # Verifies the email token for email validation
+#   validateEmail(validateEmailToken: String!): AuthPayload!
+#   # Admin only function for permissions updates on user accounts
+#   updatePermissions(permissions: [Permission], userId: ID!): User
+#   # Adds a rec area to current user's favorites list
+#   addToFavorites(id: ID!): Favorite
+#   # Removes a rec area from a current user's favorites list
+#   removeFromFavorites(id: ID!): Favorite
+#   # Adds an image to user's profile, review, or rec area
+#   createImage(image: String, largeImage: String): Image!
+#   # Removes the image from user's profile, review, or rec area.
+#   deleteImage(id: ID!): Image
+#   # Adds a review to rec area being viewed
+#   createReview(content: String, rating: Int!): Review!
+#   # Updates a review
+#   updateReview(id: ID!, content: String, rating: Int!): Review
+#   # Deletes a review
+#   deleteReview(id: ID!): Review
+# }
+
+# type Query {
+#   favorite(id: ID!): Favorite
+#   favorites(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, first: Int): [Favorite]!
+#   favoritesConnection(where: FavoriteOrderByInput): FavoriteConnection!
+#   image(id: ID!): Image
+#   images(
+#     where: 
+#   ): [Image]!
+#   me: User
+#   users: [User]!
+#   recarea(where: RecAreaWhereUniqueInput!): RecArea
+#   recareas(where: RecAreaWhereInput, orderBy: RecAreaOrderByInput, skip: Int, first: Int): [RecArea]!
+#   recAreasConnection(where: RecAreaWhereInput): RecAreaConnection!
+#   review(where: ReviewWhereUniqueInput!): Review
+#   reviews(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, first: Int): [Review]!
+#   reviewsConnection(where: ReviewOrderByInput): ReviewConnection
+# }
+
+# type User {
+#   id: ID!
+#   name: String!
+#   email: String!
+#   permissions: [Permission!]!
+#   favorites: [Favorite!]!
+#   reviews: [Review!]!
+#   images: [Image!]!
+# }
+
+# type AuthPayload {
+#   user: User!
+#   token: String!
+# }
