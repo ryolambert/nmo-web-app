@@ -39,7 +39,8 @@ server.express.use(async (req, res, next) => {
 
 // 3. Setting up and implementing passport strategies for Oauth 
 // 🙏🙏🙏 This works!
-server.express.use(initPassport());
+// server.express.use(initPassport());
+initPassport();
 server.express.use(middleWare);
 server.express.use("/auth", authRoute);
 
