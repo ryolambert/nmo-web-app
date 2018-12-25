@@ -47,29 +47,29 @@ const initPassport = () => {
     ),
   );
 
-  passport.use(
-    new GoogleStrategy(
-      {
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: process.env.GOOGLE_CALLBACK_URL,
-      },
-      async (accessToken, refreshToken, profile, done) => {
-        const currentUser = await db.user({ googleId: profile.id });
-        if (currentUser) {
-          done(null, currentUser);
-        } else {
-          const newUser = await db.createUser({
-            googleId: profile.id,
-            name: profile.displayName,
-            avatar: profile.photos[0].value,
-            email: profile.email.value
-          });
-          done(null, newUser);
-        }
-      },
-    ),
-  );
+  // passport.use(
+  //   new GoogleStrategy(
+  //     {
+  //       clientID: process.env.GOOGLE_CLIENT_ID,
+  //       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  //       callbackURL: process.env.GOOGLE_CALLBACK_URL,
+  //     },
+  //     async (accessToken, refreshToken, profile, done) => {
+  //       const currentUser = await db.user({ googleId: profile.id });
+  //       if (currentUser) {
+  //         done(null, currentUser);
+  //       } else {
+  //         const newUser = await db.createUser({
+  //           googleId: profile.id,
+  //           name: profile.displayName,
+  //           avatar: profile.photos[0].value,
+  //           email: profile.email.value
+  //         });
+  //         done(null, newUser);
+  //       }
+  //     },
+  //   ),
+  // );
 
   // TODO: Check with the passport docs on twitter strategy implementation
   passport.use(
