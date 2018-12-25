@@ -6,24 +6,9 @@ type SuccessMessage {
 
 type Mutation {
   # Creates a RecArea
-  createRecArea(
-    name: String
-    lat: Float
-    long: Float
-    description: String
-    activities: [Activity]
-    images: [Image]
-  ): RecArea!
+  createRecArea(data: RecAreaCreateInput!): RecArea!
   # Updates a RecArea
-  updateRecArea(
-    id: ID!
-    name: String
-    lat: Float
-    long: Float
-    description: String
-    activities: [Activity]
-    images: [Image]
-  ): RecArea!
+  updateRecArea(data: RecAreaUpdateInput!, where: RecAreaWhereUniqueInput!): RecArea
   # Deletes a RecArea
   deleteRecArea(id: ID!): RecArea
   # Signs user up
@@ -35,7 +20,7 @@ type Mutation {
   ): AuthPayload!
   # Signs user in
   signin(email: String!, password: String!): AuthPayload!
-  # Signs user out
+# Signs user out
   signout: SuccessMessage
   # User password reset email request
   requestReset(email: String!): User!
