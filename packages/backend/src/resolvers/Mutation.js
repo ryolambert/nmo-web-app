@@ -48,13 +48,13 @@ const Mutations = {
   },
   async deleteRecArea(parent, args, ctx, info) {
     const where = { id: args.id };
-    // 1. find the recarea
-    const recarea = await ctx.db.query.recarea(
+    // 1. find the recArea
+    const recArea = await ctx.db.query.recArea(
       { where },
-      `{ id title user { id }}`
+      `{ id name user { id }}`
     );
-    // 2. Check if they own that recarea, or have the permissions
-    const ownsRecArea = recarea.user.id === ctx.request.userId;
+    // 2. Check if they own that recArea, or have the permissions
+    const ownsRecArea = recArea.user.id === ctx.request.userId;
     const hasPermissions = ctx.request.user.permissions.some(permission =>
       ['ADMIN', 'RECAREADELETE'].includes(permission)
     );
@@ -66,6 +66,50 @@ const Mutations = {
     // 3. Delete it!
     return ctx.db.mutation.deleteRecArea({ where }, info);
   },
+  async createImage(parent, args, ctx, info) {
+    // 1. Check user sign in
+    if(!ctx.request.userId) {
+      throw new Error('You must be signed in to upload an image 😔')
+    }
+
+    // 2. Image-User db relationship && image link mutation
+    const image = await ctx.db.mutation.createImage(
+      {
+        data: {
+          // Image-User relationship connection
+          user: {
+            connect: {
+              id: ctx.request.userId,
+            },
+          },
+          ...args,
+        },
+      },
+      info
+    );
+
+    // 3. Console image check
+    console.log(image);
+
+    // 4. return created image
+    return image;
+  },
+  async deleteImage(parent, args, ctx, info) {
+    const where = { id: args.id };
+    // 1. Find the image
+    const image = await ctx.db.query.image({ where }, `{ id user { id }}`);
+    // 2. Check ownership/permissions
+    const ownsImage = image.user.id === ctx.request.userId;
+    const hasPermissions = ctx.request.user.permissions.some(permission => 
+      ['ADMIN', 'IMAGEDELETE'].includes(permission)
+      );
+
+      if(!ownsImage && !hasPermissions) {
+        throw new Error("You don't have permission to do that!");
+      }
+      // 3. Delete image
+      return ctx.db.mutation.deleteImage({ where }, info);
+  },
   async addToFavorites(parent, args, ctx, info) {
     // 1. Make sure they are signed in
     const { userId } = ctx.request;
@@ -76,10 +120,10 @@ const Mutations = {
     const isFavored = await ctx.db.query.favorites({
       where: {
         user: { id: userId },
-        recarea: { id: args.id }
+        recArea: { id: args.id }
       }
     });
-    // 3. Check if that recarea is already in their favorites
+    // 3. Check if that recArea is already in their favorites
     if (isFavored) {
       throw new Error('Already in favorites');
     }
@@ -90,7 +134,7 @@ const Mutations = {
           user: {
             connect: { id: userId }
           },
-          recarea: {
+          recArea: {
             connect: { id: args.id }
           }
         }
@@ -99,7 +143,7 @@ const Mutations = {
     );
   },
   async removeFromFavorites(parent, args, ctx, info) {
-    // 1. Find the cart recarea
+    // 1. Find the cart recArea
     const favorite = await ctx.db.query.favorites(
       {
         where: {
@@ -108,9 +152,9 @@ const Mutations = {
       },
       `{ id, user { id }}`
     );
-    // 1.5 Make sure we found an recarea
+    // 1.5 Make sure we found an recArea
     if (!favorite) throw new Error('No Favorite Found!');
-    // 2. Make sure they own that recarea
+    // 2. Make sure they own that recArea
     if (favorite.user.id !== ctx.request.userId) {
       throw new Error('No cheating');
     }
@@ -132,10 +176,10 @@ const Mutations = {
     const isReviewed = await ctx.db.query.reviews({
       where: {
         user: { id: userId },
-        recarea: { id: args.id }
+        recArea: { id: args.id }
       }
     });
-    // 3. Check if the user has already left a review on that recarea
+    // 3. Check if the user has already left a review on that recArea
     if (isReviewed) {
       throw new Error('Already left a review, feel free to update your existing review! 👍');
     }
@@ -146,7 +190,7 @@ const Mutations = {
           user: {
             connect: { id: userId}
           },
-          recarea: {
+          recArea: {
             connect: { id: args.id }
           }
         }
