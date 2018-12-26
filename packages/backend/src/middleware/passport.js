@@ -1,7 +1,7 @@
 // Passport-js Oauth Strategies 
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook');
-const GoogleStrategy = require('passport-google-oauth20');
+// const GoogleStrategy = require('passport-google-oauth20');
 const TwitterStrategy = require('passport-twitter');
 
 const db = require('../db');
