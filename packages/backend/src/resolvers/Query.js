@@ -2,9 +2,12 @@ const { forwardTo } = require('prisma-binding');
 const { hasPermission } = require('../utils/utils');
 
 const Query = {
-  recareas: forwardTo('db'),
-  recarea: forwardTo('db'),
+  recAreas: forwardTo('db'),
+  recArea: forwardTo('db'),
   recAreasConnection: forwardTo('db'),
+  images: forwardTo('db'),
+  image: forwardTo('db'),
+  imagesConnection: forwardTo('db'),
   me(parent, args, ctx, info) {
     // check if there is a current user ID
     if (!ctx.request.userId) {
@@ -12,7 +15,7 @@ const Query = {
     }
     return ctx.db.query.user(
       {
-        where: { id: ctx.request.userId },
+        where: { id: ctx.request.userId }
       },
       info
     );
@@ -49,7 +52,7 @@ const Query = {
     // 2. Query the current order
     const favorite = await ctx.db.query.favorite(
       {
-        where: { id: args.id },
+        where: { id: args.id }
       },
       info
     );
@@ -72,18 +75,111 @@ const Query = {
     return ctx.db.query.favorites(
       {
         where: {
-          user: { id: userId },
-        },
+          user: { id: userId }
+        }
       },
       info
     );
-  }
-  // async image(parent, args, ctx, info) {
-  //   // 1. Login check
-  //   const { userId } = ctx.request;
-
-  // }
-  // async totalFavorByCurrentUser(parent)
+  },
+  async totalFavorByRecArea(parent, { recAreaId }, ctx, info) {
+    return ctx.db.query.favoritesConnection(
+      {
+        where: {
+          recArea: {
+            id: recAreaId
+          }
+        }
+      },
+      info
+    );
+  },
+  async totalFavorByCurrentUser(parent, args, ctx, info) {
+    const { userId } = ctx.request;
+    if (!userId) {
+      throw new Error('You must be signed in!');
+    }
+    return ctx.db.query.favoritesConnection(
+      {
+        where: {
+          user: {
+            id: userId
+          }
+        }
+      },
+      info
+    );
+  },
+  async totalReviewsByRecArea(parent, { recAreaId }, ctx, info) {
+    return ctx.db.query.reviewsConnection(
+      {
+        where: {
+          recArea: {
+            id: recAreaId
+          }
+        }
+      },
+      info
+    );
+  },
+  async totalReviewsByCurrentUser(parent, args, ctx, info) {
+    const { userId } = ctx.request;
+    if (!userId) {
+      throw new Error('You must be signed in!');
+    }
+    return ctx.db.query.reviewsConnection(
+      {
+        where: {
+          user: {
+            id: userId
+          }
+        }
+      },
+      info
+    );
+  },
+  async topRatedRecAreas(parent, args, ctx, info) {
+    return ctx.db.query.recAreas({ orderBy: 'rating_DESC' }, info);
+  },
+  async topFavoriteRecAreas(parent, args, ctx, info) {
+    return ctx.db.query.recAreas({ orderBy: 'favorite_DESC' }, info);
+  },
+  async imagesByRecArea(parent, { recAreaId }, ctx, info) {
+    return ctx.db.query.images(
+      {
+        where: {
+          recArea: {
+            id: recAreaId
+          }
+        }
+      },
+      info
+    );
+  },
+  async imagesByCurrentUser(parent, args, ctx, info) {
+    const { userId } = ctx.request;
+    if (!userId) {
+      throw new Error('You must be signed in!');
+    }
+    return ctx.db.query.imagesConnection({
+      where: {
+        user: {
+          id: userId
+        }
+      }
+    });
+  },
+  async imagesByReview(parent, { reviewId }, ctx, info) {
+    return ctx.db.query.reviewsConnection(
+      {
+        where: {
+          review: {
+            id: reviewId
+          }
+        }
+      },
+      info
+    );
+  },
 };
 
 module.exports = Query;

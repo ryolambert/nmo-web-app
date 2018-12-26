@@ -8,7 +8,10 @@ type Mutation {
   # Creates a RecArea
   createRecArea(data: RecAreaCreateInput!): RecArea!
   # Updates a RecArea
-  updateRecArea(data: RecAreaUpdateInput!, where: RecAreaWhereUniqueInput!): RecArea
+  updateRecArea(
+    data: RecAreaUpdateInput!
+    where: RecAreaWhereUniqueInput!
+  ): RecArea
   # Deletes a RecArea
   deleteRecArea(id: ID!): RecArea
   # Signs user up
@@ -20,7 +23,7 @@ type Mutation {
   ): AuthPayload!
   # Signs user in
   signin(email: String!, password: String!): AuthPayload!
-# Signs user out
+  # Signs user out
   signout: SuccessMessage
   # User password reset email request
   requestReset(email: String!): User!
@@ -66,8 +69,8 @@ type Query {
   imagesConnection(where: ImageOrderByInput): ImageConnection!
   me: User
   users: [User]!
-  recarea(where: RecAreaWhereUniqueInput!): RecArea
-  recareas(
+  recArea(where: RecAreaWhereUniqueInput!): RecArea
+  recAreas(
     where: RecAreaWhereInput
     orderBy: RecAreaOrderByInput
     skip: Int
@@ -82,6 +85,15 @@ type Query {
     first: Int
   ): [Review]!
   reviewsConnection(where: ReviewOrderByInput): ReviewConnection
+  topRatedRecAreas: [RecArea!]!
+  topFavoriteRecAreas: [RecArea!]!
+  imagesByCurrentUser: ImageConnection
+  imagesByRecArea(recAreaId: String!): ImageConnection
+  imagesByReview(reviewId: String!): ImageConnection
+  totalFavorByCurrentUser: FavoriteConnection
+  totalFavorByRecArea(recAreaId: String!): FavoriteConnection
+  totalReviewsByCurrentUser: ReviewConnection
+  totalReviewsByRecArea(recAreaId: String!): ReviewConnection
 }
 
 type User {
