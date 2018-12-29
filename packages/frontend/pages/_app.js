@@ -1,5 +1,10 @@
 // This file is setup to create the actual apollo client
+import React from 'react';
 import App, { Container } from 'next/app';
+import Head from 'next/head';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import JssProvider from 'react-jss/lib/JssProvider';
 import { ApolloProvider } from 'react-apollo';
 import withData from '../lib/withData';
 import Page from '../components/Page';
