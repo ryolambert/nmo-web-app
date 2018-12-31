@@ -4,6 +4,9 @@
 enum Permission {
   ADMIN
   USER
+  USERDELETE
+  ACTIVITYCREATE
+  ACTIVITYDELETE
   IMAGECREATE
   IMAGEDELETE
   FAVORITECREATE
@@ -54,6 +57,7 @@ type User {
   name: String!
   password: String!
   permissions: [Permission]
+  recAreas: [RecArea!]! @relation(name: "UserRecAreas")
   resetToken: String! @unique
   resetTokenExpiry: Float
   reviews: [Review!]! @relation(name: "UserReviews", onDelete: CASCADE)
@@ -73,6 +77,7 @@ type RecArea {
   mapUrl: String
   name: String!
   reviews: [Review!]! @relation(name: "RecAreaReviews", onDelete: CASCADE)
+  user: User @relation(name: "UserRecAreas")
   # popularity: Int!
 }
 
