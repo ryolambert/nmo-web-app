@@ -5,6 +5,17 @@ type SuccessMessage {
 }
 
 type Mutation {
+  # Creates an Activity
+  createActivity(data: ActivityCreateInput!): Activity!
+  # Updates an Activity
+  updateActivity(
+    data: ActivityUpdateInput!
+    where: ActivityWhereUniqueInput!
+  ): Activity
+  # # Deletes an Activity
+  deleteActivity(where: ActivityWhereUniqueInput!): Activity
+  # # Deletes a User
+  deleteUser(id: ID!): User
   # Creates a RecArea
   createRecArea(data: RecAreaCreateInput!): RecArea!
   # Updates a RecArea
@@ -13,7 +24,7 @@ type Mutation {
     where: RecAreaWhereUniqueInput!
   ): RecArea
   # Deletes a RecArea
-  deleteRecArea(id: ID!): RecArea
+  deleteRecArea(recAreaId: ID!): RecArea
   # Signs user up
   signup(
     email: String!
@@ -28,11 +39,7 @@ type Mutation {
   # User password reset email request
   requestReset(email: String!): User!
   # User password input for reset on site
-  resetPassword(
-    resetToken: String!
-    password: String!
-    confirmPassword: String!
-  ): User!
+  resetPassword(resetToken: String!, password: String!): AuthPayload!
   # Sends out an email link for users to validate their profile
   sendLinkValidateEmail: User!
   # Verifies the email token for email validation
@@ -48,14 +55,33 @@ type Mutation {
   # Removes the image from user's profile, review, or rec area.
   deleteImage(id: ID!): Image
   # Adds a review to rec area being viewed
-  createReview(content: String, rating: Int!): Review!
+  createReview(data: ReviewCreateInput!): Review!
   # Updates a review
-  updateReview(id: ID!, content: String, rating: Int): Review
+  updateReview(data: ReviewUpdateInput!): Review
   # Deletes a review
   deleteReview(id: ID!): Review
 }
 
 type Query {
+  activity(where: ActivityWhereUniqueInput!): Activity
+  activities(
+    where: ActivityWhereInput
+    orderBy: ActivityOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Activity]!
+  activitiesConnection(
+    where: ActivityWhereInput
+    orderBy: ActivityOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): ActivityConnection!
   favorite(id: ID!): Favorite
   favorites(
     where: FavoriteWhereInput
@@ -63,13 +89,13 @@ type Query {
     skip: Int
     first: Int
   ): [Favorite]!
-  favoritesConnection(where: FavoriteOrderByInput): FavoriteConnection!
+  # favoritesConnection(where: FavoriteOrderByInput): FavoriteConnection!
   image(id: ID!): Image
   images(orderBy: ImageOrderByInput, skip: Int, first: Int): [Image]!
   imagesConnection(where: ImageOrderByInput): ImageConnection!
   me: User
   users: [User]!
-  recArea(where: RecAreaWhereUniqueInput!): RecArea
+  recArea(id: ID!): RecArea
   recAreas(
     where: RecAreaWhereInput
     orderBy: RecAreaOrderByInput
@@ -107,6 +133,6 @@ type User {
 }
 
 type AuthPayload {
-  user: User!
   token: String!
+  user: User!
 }
